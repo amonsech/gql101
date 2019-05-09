@@ -1,19 +1,19 @@
 import { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLNonNull } from 'graphql';
-import postDAO from '../persist/postDAO';
-import PostType from './PostType';
+import AuthorType from './AuthorType';
+import authorDAO from '../persist/authorDAO';
 
 export default new GraphQLObjectType({
-    name: 'AuthorType',
+    name: 'PostType',
     fields: () => ({
         id: {
             type: GraphQLString
         },
-        name: {
+        content: {
             type: GraphQLString
         },
-        posts: {
-            type: GraphQLList(PostType),
-            resolve: (author) => postDAO.getForAuthorId(author.id)
+        author: {
+            type: AuthorType,
+            resolve: (post) => authorDAO.get(post.authorId) 
         }
     })
 })
