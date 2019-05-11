@@ -1,0 +1,30 @@
+schema {
+  query: RootQuery
+  mutation: RootMutation
+}
+
+type AuthorType {
+  id: String
+  name: String
+  posts: [PostType]
+}
+
+input PostInputType {
+  content: String
+  authorId: String
+}
+
+type PostType {
+  id: String
+  content: String
+  author: AuthorType
+}
+
+type RootMutation {
+  createPost(post: PostInputType): PostType
+}
+
+"""Descripcion opcional"""
+type RootQuery {
+  authors: [AuthorType]
+}
